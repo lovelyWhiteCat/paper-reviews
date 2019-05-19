@@ -7,26 +7,43 @@
 
   - Deep EXpectation은 crop face를 찾고, 20개의 네트워크를 앙상블하여 apparent age를 예측한다.
   - ImageNet으로 pretrain하고, IMDM-WIKI 데이터셋으로 finetune 하였다.
-
+  
   - 주요 Contribution은 다음과 같다.
     - biological age를 예측하기 위한 IMDB-WIKI 데이터셋
     - expected value refinement가 뒤따르는 deep classification으로 age를 regression
     - DEX는 LAP 2015 challenge의 apparent age 부분에서 winner
 
+
 2. Proposed method (DEX)
+
  2.1 Face Detection
    - [10]의 face detector로, training, test images의 face location을 구한다.
    - Face align을 위해, original images 뿐만 아니라, -60 ~ +60도 범위에서 5도 간격으로 이미지를 회전시켜, face images를 보충한다.
    - Prediction accuary에 도움이 되도록 context를 추가하기 위해, Face images의 width, height를 40% 확장한다.
    - 얼굴이 항상 이미지의 동일한 위치에 있도록, (확장할 공간이 부족할 때) 이미지 외곽에 pad를 추가한다.
    - 결과적으로 deep conv net의 input은 256x256로 resize하여 들어간다.
+   
  2.2 Face Apparent Age Estimation
   2.2.1 Deep learning with CNNs
     - VGG-16구조에 ImageNet으로 pretrain하고 IMDB-WIKI로 finetune하였다.
     - Regression training은, output layer를 single neuron으로 변경한다.
     - Classification training은, output layer를 101개의 neurons을 사용한다. 0부터 100까지 age label을 나타낸다.
     (Regression training을 왜 별도로 진행하는지? regression training없이 classification training을 했을 때 큰 차이가 있을까?)
+    
   2.2.2 Expected Value
     - Age estimation은 piece-wise regression 또는 multiple discrete value labels의 discrete classification으로 볼수 있다.
-    - 분류해야 하는 class의 갯수가 많을수록, 더 적은 discretization error가 발생한다.
+    - 이때, 분류해야 하는 class의 갯수가 많을수록, 더 적은 discretization error가 발생한다.
+    - 더 조밀하게 class 분류 갯수를 늘려서 성능을 높일 수 있는데, class 갯수가 증가하면 특정 클래스의 샘플이 불충분하여(unbalance), 
+     overfitting이 발생할 수 있다.
+    - 실험을 통해 101개의 age classes로 결정하였고, softmax expected value을 아래와 같이 계산하였다.
+     E(O)=\sum_{i=0}^{100}y_{i}o_{i}
+     
+  2.2.3 Ensemble of CNNs
+    - 최종 예측 값으로 20개 ensemble network의 평균을 구한다.
+    - 각 network는 서로 다른 train set, validate set으로 분리하여 학습하였다.
     
+    
+3. Experiments
+
+4. Conclusions
+
