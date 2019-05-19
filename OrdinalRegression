@@ -1,0 +1,19 @@
+
+
+논문 제목 : Ordinal Regression with Multiple Output CNN for Age Estimation
+저자/기관 :
+발표/시기 : CVPR 2016
+
+
+1. Intro.
+
+2. Related Work
+
+3. Ordinal Regression with CNN
+ 3.1 Problem Formulation
+ 
+ 3.2 Our Approach
+   - Ordinal regression은 binary classifcation의 sub-problems의 집합으로 표현 할 수 있다.
+   - 다시 말해, K개의 rank를 가지는 OR은 K-1개의 binary classification으로 변형된다.
+   - 하나의 binary classifier는 샘플의 y가 rk보다 큰 값인지에 대한 예측을 위해 구성된다.
+ 
