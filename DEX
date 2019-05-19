@@ -36,7 +36,7 @@
     - 더 조밀하게 class 분류 갯수를 늘려서 성능을 높일 수 있는데, class 갯수가 증가하면 특정 클래스의 샘플이 불충분하여(unbalance), 
      overfitting이 발생할 수 있다.
     - 실험을 통해 101개의 age classes로 결정하였고, softmax expected value을 아래와 같이 계산하였다.
-     $$E(O)=\sum_{i=0}^{100}y_{i}o_{i}$$
+     $E(O)=\sum_{i=0}^{100}y_{i}o_{i}$
      
   2.2.3 Ensemble of CNNs
     - 최종 예측 값으로 20개 ensemble network의 평균을 구한다.
