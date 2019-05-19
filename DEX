@@ -1,0 +1,22 @@
+DEX: Deep Expectation of Apparent Age from a Single Image
+IJCV 2016, Rasmus Rothe, Radu Timofte, Luc Van Gool, Computer Vision Lab, D-ITET, ETH Zurich, Switzerland
+
+1. Intro
+
+  - Deep EXpectation은 crop face를 찾고, 20개의 네트워크를 앙상블하여 apparent age를 예측한다.
+  - ImageNet으로 pretrain하고, IMDM-WIKI 데이터셋으로 finetune 하였다.
+
+  - 주요 Contribution은 다음과 같다.
+    - biological age를 예측하기 위한 IMDB-WIKI 데이터셋
+    - expected value refinement가 뒤따르는 deep classification으로 age를 regression
+    - DEX는 LAP 2015 challenge의 apparent age 부분에서 winner
+
+2. Proposed method (DEX)
+ 2.1 Face Detection
+   - [10]의 face detector로, training, test images의 face location을 구한다.
+   - Face align을 위해, original images 뿐만 아니라, -60 ~ +60도 범위에서 5도 간격으로 이미지를 회전시켜, face images를 보충한다.
+   - Prediction accuary에 도움이 되도록 context를 추가하기 위해, Face images의 width, height를 40% 확장한다.
+   - 얼굴이 항상 이미지의 동일한 위치에 있도록, (확장할 공간이 부족할 때) 이미지 외곽에 pad를 추가한다.
+   - 결과적으로 deep conv net의 input은 256x256로 resize하여 들어간다.
+ 2.2 Face Apparent Age Estimation
+ 
