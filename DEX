@@ -1,5 +1,7 @@
-DEX: Deep Expectation of Apparent Age from a Single Image
-IJCV 2016, Rasmus Rothe, Radu Timofte, Luc Van Gool, Computer Vision Lab, D-ITET, ETH Zurich, Switzerland
+논문 제목 : DEX: Deep Expectation of Apparent Age from a Single Image
+저자/기관 : Rasmus Rothe, Radu Timofte, Luc Van Gool, Computer Vision Lab, D-ITET, ETH Zurich, Switzerland
+발표/시기 : IJCV 2016 
+
 
 1. Intro
 
@@ -19,4 +21,12 @@ IJCV 2016, Rasmus Rothe, Radu Timofte, Luc Van Gool, Computer Vision Lab, D-ITET
    - 얼굴이 항상 이미지의 동일한 위치에 있도록, (확장할 공간이 부족할 때) 이미지 외곽에 pad를 추가한다.
    - 결과적으로 deep conv net의 input은 256x256로 resize하여 들어간다.
  2.2 Face Apparent Age Estimation
- 
+  2.2.1 Deep learning with CNNs
+    - VGG-16구조에 ImageNet으로 pretrain하고 IMDB-WIKI로 finetune하였다.
+    - Regression training은, output layer를 single neuron으로 변경한다.
+    - Classification training은, output layer를 101개의 neurons을 사용한다. 0부터 100까지 age label을 나타낸다.
+    (Regression training을 왜 별도로 진행하는지? regression training없이 classification training을 했을 때 큰 차이가 있을까?)
+  2.2.2 Expected Value
+    - Age estimation은 piece-wise regression 또는 multiple discrete value labels의 discrete classification으로 볼수 있다.
+    - 분류해야 하는 class의 갯수가 많을수록, 더 적은 discretization error가 발생한다.
+    
